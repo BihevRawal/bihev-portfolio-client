@@ -1186,6 +1186,55 @@ pre {
 }
 
 @media (max-width: 760px) {
+  .binary-rain-haze,
+  .binary-rain-layer {
+    display: none;
+  }
+
+  .binary-rain {
+    background:
+      radial-gradient(circle at 50% 14%, rgba(0, 255, 102, 0.03), transparent 34%),
+      linear-gradient(180deg, #040404 0%, #030403 100%);
+  }
+
+  .hero-panel,
+  .profile-card,
+  .code-window::after,
+  .section,
+  .project-card,
+  .timeline-card,
+  .stack-card,
+  .about-card,
+  .contact-card,
+  .metric-card {
+    animation: none !important;
+  }
+
+  .site-header {
+    backdrop-filter: blur(12px) saturate(145%);
+    -webkit-backdrop-filter: blur(12px) saturate(145%);
+  }
+
+  .profile-card {
+    width: 100%;
+  }
+
+  .metric-card,
+  .project-card,
+  .timeline-card,
+  .stack-card,
+  .about-card,
+  .contact-card,
+  .profile-card,
+  .code-window,
+  .contact-qr-card,
+  .contact-badge,
+  .secondary-button,
+  .ghost-button {
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+  }
+
   .site-header,
   .page-shell,
   .site-footer {

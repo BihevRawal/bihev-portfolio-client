@@ -155,42 +155,45 @@ function makeBinaryStream(columnCount, options = {}) {
 }
 
 function BinaryRainBackground() {
+  const isCompactViewport =
+    typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches;
+
   const backgroundStreams = useMemo(
     () =>
-      makeBinaryStream(12, {
+      makeBinaryStream(isCompactViewport ? 4 : 12, {
         minDelay: 0,
         maxDelay: 12,
-        minDuration: 45,
-        maxDuration: 80,
-        minOpacity: 0.03,
-        maxOpacity: 0.08,
-        minFontSize: 18,
-        maxFontSize: 26,
-        minGlyphs: 18,
-        maxGlyphs: 32,
-        leftJitter: 2.6,
+        minDuration: isCompactViewport ? 70 : 45,
+        maxDuration: isCompactViewport ? 120 : 80,
+        minOpacity: isCompactViewport ? 0.02 : 0.03,
+        maxOpacity: isCompactViewport ? 0.05 : 0.08,
+        minFontSize: isCompactViewport ? 14 : 18,
+        maxFontSize: isCompactViewport ? 20 : 26,
+        minGlyphs: isCompactViewport ? 14 : 18,
+        maxGlyphs: isCompactViewport ? 24 : 32,
+        leftJitter: isCompactViewport ? 1.4 : 2.6,
         leftSpread: 100,
       }),
-    [],
+    [isCompactViewport],
   );
 
   const foregroundStreams = useMemo(
     () =>
-      makeBinaryStream(36, {
+      makeBinaryStream(isCompactViewport ? 12 : 36, {
         minDelay: 0,
-        maxDelay: 20,
-        minDuration: 15,
-        maxDuration: 30,
-        minOpacity: 0.45,
-        maxOpacity: 1,
-        minFontSize: 12,
-        maxFontSize: 16,
-        minGlyphs: 30,
-        maxGlyphs: 58,
-        leftJitter: 1.25,
+        maxDelay: isCompactViewport ? 8 : 20,
+        minDuration: isCompactViewport ? 24 : 15,
+        maxDuration: isCompactViewport ? 48 : 30,
+        minOpacity: isCompactViewport ? 0.2 : 0.45,
+        maxOpacity: isCompactViewport ? 0.5 : 1,
+        minFontSize: isCompactViewport ? 10 : 12,
+        maxFontSize: isCompactViewport ? 13 : 16,
+        minGlyphs: isCompactViewport ? 18 : 30,
+        maxGlyphs: isCompactViewport ? 32 : 58,
+        leftJitter: isCompactViewport ? 0.9 : 1.25,
         leftSpread: 100,
       }),
-    [],
+    [isCompactViewport],
   );
 
   return (
@@ -662,6 +665,8 @@ export default function App() {
 
   useEffect(() => {
     const root = document.documentElement;
+    const isTouchLike = window.matchMedia("(max-width: 760px)").matches || window.matchMedia("(pointer: coarse)").matches;
+    if (isTouchLike) return undefined;
     let frameId = 0;
     let lastX = 0;
     let lastY = 0;
