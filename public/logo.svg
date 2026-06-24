@@ -1,36 +1,40 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bihev Rawal logo">
   <defs>
-    <linearGradient id="bg" x1="90" y1="50" x2="430" y2="460" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7C3AED"/>
-      <stop offset="0.52" stop-color="#3E7BFF"/>
-      <stop offset="1" stop-color="#1ED6D6"/>
+    <linearGradient id="panel" x1="58" y1="42" x2="456" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101A2B"/>
+      <stop offset="1" stop-color="#07101A"/>
     </linearGradient>
-    <linearGradient id="shine" x1="120" y1="120" x2="392" y2="392" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFFF" stop-opacity="0.24"/>
-      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    <linearGradient id="accent" x1="136" y1="132" x2="388" y2="392" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7BA5FF"/>
+      <stop offset="1" stop-color="#A7D0FF"/>
     </linearGradient>
-    <filter id="shadow" x="48" y="48" width="416" height="416" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000000" flood-opacity="0.38"/>
+    <filter id="shadow" x="36" y="36" width="440" height="440" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.4"/>
     </filter>
   </defs>
-  <rect x="24" y="24" width="464" height="464" rx="110" fill="#070A12"/>
-  <rect x="42" y="42" width="428" height="428" rx="92" fill="url(#bg)" filter="url(#shadow)"/>
-  <rect x="42" y="42" width="428" height="428" rx="92" fill="url(#shine)"/>
-  <rect x="74" y="74" width="364" height="364" rx="74" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
-  <path d="M112 142H400" stroke="white" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round"/>
-  <path d="M112 370H400" stroke="white" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round"/>
-  <path d="M142 112V400" stroke="white" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round"/>
-  <path d="M370 112V400" stroke="white" stroke-opacity="0.08" stroke-width="2" stroke-linecap="round"/>
-  <circle cx="146" cy="146" r="8" fill="#1ED6D6" fill-opacity="0.9"/>
-  <circle cx="366" cy="146" r="8" fill="#7C3AED" fill-opacity="0.9"/>
-  <circle cx="146" cy="366" r="8" fill="#7C3AED" fill-opacity="0.9"/>
-  <circle cx="366" cy="366" r="8" fill="#1ED6D6" fill-opacity="0.9"/>
-  <path d="M169 344V168H250C286 168 307 183 307 211C307 231 296 246 278 253C302 259 317 276 317 302C317 328 299 344 265 344H169Z" fill="white"/>
-  <path d="M209 206H252C267 206 275 213 275 225C275 237 266 244 251 244H209V206Z" fill="#5C67F2"/>
-  <path d="M209 274H259C275 274 284 281 284 293C284 306 275 313 259 313H209V274Z" fill="#35B6F8"/>
-  <path d="M323 344V168H375C402 168 419 184 419 209C419 227 410 239 396 246C412 252 422 267 422 288C422 321 398 344 358 344H323ZM360 204V243H375C388 243 396 236 396 224C396 212 389 204 375 204H360ZM360 272V312H379C394 312 404 303 404 292C404 280 395 272 379 272H360Z" fill="white"/>
-  <path d="M296 208L317 168L334 176L313 216L296 208Z" fill="#0A0D16" fill-opacity="0.45"/>
-  <path d="M138 318L184 318" stroke="#0A0D16" stroke-opacity="0.4" stroke-width="10" stroke-linecap="round"/>
-  <path d="M328 126L378 126" stroke="white" stroke-opacity="0.35" stroke-width="6" stroke-linecap="round"/>
-  <path d="M388 126L404 126" stroke="#1ED6D6" stroke-width="6" stroke-linecap="round"/>
+  <rect x="24" y="24" width="464" height="464" rx="116" fill="#060B13"/>
+  <rect x="42" y="42" width="428" height="428" rx="94" fill="url(#panel)" stroke="rgba(148, 163, 184, 0.12)" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="76" y="76" width="360" height="360" rx="70" stroke="rgba(148, 163, 184, 0.1)" stroke-width="2"/>
+  <path d="M126 132H198" stroke="url(#accent)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M126 132V204" stroke="url(#accent)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M386 380H314" stroke="url(#accent)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M386 380V308" stroke="url(#accent)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M124 338L148 338" stroke="rgba(123, 165, 255, 0.45)" stroke-width="6" stroke-linecap="round"/>
+  <path d="M364 174L388 174" stroke="rgba(123, 165, 255, 0.45)" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="146" cy="146" r="6" fill="#A7D0FF"/>
+  <circle cx="366" cy="366" r="6" fill="#A7D0FF"/>
+  <text
+    x="256"
+    y="312"
+    fill="#F5F8FC"
+    text-anchor="middle"
+    font-family="Inter, 'Segoe UI', Arial, sans-serif"
+    font-size="154"
+    font-weight="800"
+    letter-spacing="-0.08em"
+  >
+    BR
+  </text>
+  <path d="M188 334H324" stroke="#7BA5FF" stroke-width="8" stroke-linecap="round"/>
+  <path d="M352 206L392 166" stroke="#7BA5FF" stroke-width="8" stroke-linecap="round"/>
 </svg>

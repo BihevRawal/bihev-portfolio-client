@@ -2,19 +2,19 @@
 
 :root {
   color-scheme: dark;
-  --bg: #05070c;
-  --bg-soft: #090d16;
-  --surface: rgba(12, 16, 28, 0.94);
-  --surface-strong: rgba(10, 14, 24, 0.98);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --text: #ecf1f8;
-  --muted: #a0adbf;
-  --muted-strong: #7e8ba2;
-  --accent: #6e57ff;
-  --accent-2: #57cfff;
-  --accent-3: #8e36ff;
-  --shadow: 0 28px 80px rgba(0, 0, 0, 0.44);
+  --bg: #050910;
+  --bg-soft: #0a1320;
+  --surface: rgba(11, 18, 30, 0.94);
+  --surface-strong: rgba(8, 14, 24, 0.98);
+  --border: rgba(148, 163, 184, 0.12);
+  --border-strong: rgba(148, 163, 184, 0.2);
+  --text: #edf4fb;
+  --muted: #aab8ca;
+  --muted-strong: #7a879a;
+  --accent: #4f77ff;
+  --accent-2: #89baff;
+  --accent-3: #2e4fb8;
+  --shadow: 0 28px 80px rgba(2, 8, 20, 0.5);
   --page-width: 1180px;
   --radius-xl: 30px;
   --radius-lg: 20px;
@@ -41,10 +41,10 @@ body {
   color: var(--text);
   font-family: "Manrope", "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 16% 12%, rgba(110, 87, 255, 0.24), transparent 28%),
-    radial-gradient(circle at 82% 16%, rgba(87, 207, 255, 0.16), transparent 24%),
-    radial-gradient(circle at 52% 82%, rgba(142, 54, 255, 0.14), transparent 28%),
-    linear-gradient(180deg, #060810 0%, #05070c 52%, #060812 100%);
+    radial-gradient(circle at 16% 10%, rgba(79, 119, 255, 0.12), transparent 26%),
+    radial-gradient(circle at 84% 16%, rgba(137, 186, 255, 0.08), transparent 24%),
+    radial-gradient(circle at 50% 82%, rgba(79, 119, 255, 0.07), transparent 30%),
+    linear-gradient(180deg, #060c14 0%, #050910 50%, #07111c 100%);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -90,41 +90,40 @@ pre {
   position: absolute;
   inset: -10%;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.042) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.042) 1px, transparent 1px);
+    linear-gradient(rgba(161, 178, 200, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(161, 178, 200, 0.05) 1px, transparent 1px);
   background-size: 56px 56px;
-  mask-image: radial-gradient(circle at 50% 16%, black 20%, transparent 72%);
-  opacity: 0.32;
+  mask-image: radial-gradient(circle at 50% 16%, black 18%, transparent 74%);
+  opacity: 0.22;
 }
 
 .orb {
   position: absolute;
-  width: 46vmax;
-  height: 46vmax;
+  width: 42vmax;
+  height: 42vmax;
   border-radius: 999px;
-  filter: blur(70px);
-  opacity: 0.68;
-  mix-blend-mode: screen;
+  filter: blur(88px);
+  opacity: 0.28;
 }
 
 .orb-a {
-  top: -16vmax;
-  left: -16vmax;
-  background: radial-gradient(circle at 30% 30%, rgba(110, 87, 255, 0.8), transparent 62%);
+  top: -14vmax;
+  left: -18vmax;
+  background: radial-gradient(circle at 30% 30%, rgba(79, 119, 255, 0.48), transparent 64%);
   animation: driftA 18s ease-in-out infinite;
 }
 
 .orb-b {
-  top: 12vmax;
-  right: -16vmax;
-  background: radial-gradient(circle at 30% 30%, rgba(87, 207, 255, 0.72), transparent 62%);
+  top: 10vmax;
+  right: -18vmax;
+  background: radial-gradient(circle at 30% 30%, rgba(137, 186, 255, 0.34), transparent 64%);
   animation: driftB 22s ease-in-out infinite;
 }
 
 .orb-c {
   bottom: -18vmax;
-  left: 34%;
-  background: radial-gradient(circle at 30% 30%, rgba(142, 54, 255, 0.6), transparent 62%);
+  left: 32%;
+  background: radial-gradient(circle at 30% 30%, rgba(46, 79, 184, 0.28), transparent 64%);
   animation: driftC 24s ease-in-out infinite;
 }
 
@@ -169,11 +168,11 @@ pre {
   width: min(var(--page-width), calc(100vw - 28px));
   margin: 16px auto 0;
   padding: 14px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 999px;
-  background: rgba(6, 8, 14, 0.72);
+  background: rgba(7, 11, 18, 0.78);
   backdrop-filter: blur(18px);
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 18px 48px rgba(2, 8, 20, 0.24);
 }
 
 .brand {
@@ -189,7 +188,7 @@ pre {
 .footer-mark {
   border-radius: 16px;
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 10px 30px rgba(2, 8, 20, 0.42);
 }
 
 .brand-mark {
@@ -386,8 +385,8 @@ pre {
   width: 8px;
   height: 8px;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--accent-2), #a3f2ff);
-  box-shadow: 0 0 18px rgba(87, 207, 255, 0.6);
+  background: linear-gradient(180deg, var(--accent-2), #d9e9ff);
+  box-shadow: 0 0 18px rgba(137, 186, 255, 0.42);
 }
 
 .profile-grid {
@@ -401,7 +400,7 @@ pre {
   display: grid;
   gap: 4px;
   padding: 14px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
 }
 
 .profile-grid span,
@@ -426,10 +425,10 @@ pre {
   margin-top: 20px;
   padding: 18px;
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   background:
-    radial-gradient(circle at top left, rgba(110, 87, 255, 0.14), transparent 36%),
-    rgba(255, 255, 255, 0.03);
+    radial-gradient(circle at top left, rgba(79, 119, 255, 0.12), transparent 36%),
+    rgba(255, 255, 255, 0.02);
 }
 
 .code-window-top {
@@ -462,7 +461,7 @@ pre {
 .code-chip {
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
   font-family: "IBM Plex Mono", ui-monospace, monospace;
@@ -555,7 +554,7 @@ pre {
   display: inline-flex;
   align-items: center;
   padding: 8px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
@@ -673,21 +672,21 @@ pre {
 
 .primary-button {
   border: 1px solid transparent;
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-  color: #06101b;
+  background: linear-gradient(135deg, #426cff 0%, #88b7ff 100%);
+  color: #08101d;
   font-weight: 800;
-  box-shadow: 0 16px 34px rgba(87, 207, 255, 0.18);
+  box-shadow: 0 16px 34px rgba(79, 119, 255, 0.2);
 }
 
 .secondary-button {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.16);
   background: rgba(255, 255, 255, 0.03);
   color: var(--text);
   cursor: pointer;
 }
 
 .ghost-button {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(148, 163, 184, 0.14);
   background: transparent;
   color: var(--text);
   cursor: pointer;
@@ -701,12 +700,12 @@ pre {
 
 .secondary-button:hover,
 .ghost-button:hover {
-  border-color: rgba(255, 255, 255, 0.22);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(148, 163, 184, 0.26);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .primary-button:hover {
-  box-shadow: 0 20px 40px rgba(87, 207, 255, 0.24);
+  box-shadow: 0 20px 40px rgba(79, 119, 255, 0.24);
 }
 
 .site-footer {
@@ -745,7 +744,7 @@ pre {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(2, 4, 9, 0.72);
+  background: rgba(2, 6, 12, 0.74);
   backdrop-filter: blur(18px);
 }
 
@@ -754,9 +753,9 @@ pre {
   width: min(920px, 100%);
   height: min(88vh, 1020px);
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #0b0f19;
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: #0b111b;
+  box-shadow: 0 26px 70px rgba(2, 8, 20, 0.46);
   overflow: hidden;
 }
 
@@ -768,7 +767,7 @@ pre {
   min-height: 40px;
   padding: 0 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.14);
   background: rgba(255, 255, 255, 0.05);
   color: var(--text);
   cursor: pointer;
@@ -778,7 +777,7 @@ pre {
   width: 100%;
   height: 100%;
   border: 0;
-  background: #0b0f19;
+  background: #0b111b;
 }
 
 @media (max-width: 1120px) {
