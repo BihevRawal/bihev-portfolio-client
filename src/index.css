@@ -614,8 +614,6 @@ pre {
 .section {
   padding: 44px 0 0;
   animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  content-visibility: auto;
-  contain-intrinsic-size: 900px;
   contain: layout paint style;
 }
 
