@@ -449,48 +449,70 @@ function ContactSection({ onOpenResume }) {
           <h2>Open to freelance work, product teams, and focused builds.</h2>
         </div>
 
-        <p className="contact-copy">
-          If you need a React front end, a Node API, a deployment pipeline, or a
-          mobile-first rebuild, email me or connect on LinkedIn.
-        </p>
+        <div className="contact-layout">
+          <div className="contact-main">
+            <p className="contact-copy">
+              If you need a React front end, a Node API, a deployment pipeline, or a
+              mobile-first rebuild, email me or connect on LinkedIn.
+            </p>
 
-        <div className="contact-details">
-          <div>
-            <span>Email</span>
-            <a href="mailto:bihevr@gmail.com">bihevr@gmail.com</a>
-          </div>
-          <div>
-            <span>LinkedIn</span>
-            <a
-              href="https://linkedin.com/in/bihev-rawal"
-              target="_blank"
-              rel="noreferrer"
-            >
-              linkedin.com/in/bihev-rawal
-            </a>
-          </div>
-          <div>
-            <span>Location</span>
-            <strong>Brisbane, Australia</strong>
-          </div>
-        </div>
+            <div className="contact-details">
+              <div>
+                <span>Email</span>
+                <a href="mailto:bihevr@gmail.com">bihevr@gmail.com</a>
+              </div>
+              <div>
+                <span>LinkedIn</span>
+                <a
+                  href="https://linkedin.com/in/bihev-rawal"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  linkedin.com/in/bihev-rawal
+                </a>
+              </div>
+              <div>
+                <span>Location</span>
+                <strong>Brisbane, Australia</strong>
+              </div>
+            </div>
 
-        <div className="contact-actions">
-          <a href="mailto:bihevr@gmail.com" className="primary-button">
-            Email me
-            <ArrowIcon />
-          </a>
-          <a
-            href="https://linkedin.com/in/bihev-rawal"
-            target="_blank"
-            rel="noreferrer"
-            className="secondary-button"
-          >
-            LinkedIn profile
-          </a>
-          <button type="button" className="ghost-button" onClick={onOpenResume}>
-            View resume
-          </button>
+            <div className="contact-actions">
+              <a href="mailto:bihevr@gmail.com" className="primary-button">
+                Email me
+                <ArrowIcon />
+              </a>
+              <a
+                href="https://linkedin.com/in/bihev-rawal"
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-button"
+              >
+                LinkedIn profile
+              </a>
+              <button type="button" className="ghost-button" onClick={onOpenResume}>
+                View resume
+              </button>
+            </div>
+          </div>
+
+          <aside className="contact-qr-card" aria-label="Scan to open portfolio">
+            <div className="contact-qr-head">
+              <LogoMark className="contact-qr-mark" />
+              <div>
+                <span>Scan the code</span>
+                <strong>Open this portfolio instantly</strong>
+              </div>
+            </div>
+
+            <div className="contact-qr-frame">
+              <img src="/site-qr.svg" alt="QR code to open the Bihev Rawal portfolio" />
+            </div>
+
+            <p className="contact-qr-copy">
+              Keep the site on hand, share it quickly, or open it from your phone without typing.
+            </p>
+          </aside>
         </div>
       </div>
     </section>
