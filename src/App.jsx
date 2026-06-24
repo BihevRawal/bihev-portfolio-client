@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const PROJECTS = [
   {
@@ -116,69 +116,122 @@ function TerminalIcon() {
   );
 }
 
-function MascotFigure() {
+function makeBinaryStream(columnCount, options = {}) {
+  const {
+    minDelay = 0,
+    maxDelay = 0,
+    minDuration = 15,
+    maxDuration = 30,
+    minOpacity = 0.5,
+    maxOpacity = 1,
+    minFontSize = 12,
+    maxFontSize = 16,
+    minGlyphs = 24,
+    maxGlyphs = 42,
+    leftJitter = 0.7,
+  } = options;
+
+  return Array.from({ length: columnCount }, (_, index) => {
+    const glyphCount = Math.floor(minGlyphs + Math.random() * (maxGlyphs - minGlyphs));
+    const glyphs = Array.from({ length: glyphCount }, () =>
+      Math.random() > 0.5 ? "1" : "0",
+    ).join("\n");
+
+    return {
+      id: `${index}-${Math.random().toString(36).slice(2, 8)}`,
+      delay: minDelay + Math.random() * (maxDelay - minDelay),
+      duration: minDuration + Math.random() * (maxDuration - minDuration),
+      fontSize: minFontSize + Math.random() * (maxFontSize - minFontSize),
+      left: `${Math.max(0, Math.min(100, index * leftJitter + Math.random() * 1.6))}%`,
+      opacity: minOpacity + Math.random() * (maxOpacity - minOpacity),
+      glyphs,
+    };
+  });
+}
+
+function BinaryRainBackground() {
+  const backgroundStreams = useMemo(
+    () =>
+      makeBinaryStream(34, {
+        minDelay: 0,
+        maxDelay: 12,
+        minDuration: 45,
+        maxDuration: 80,
+        minOpacity: 0.03,
+        maxOpacity: 0.08,
+        minFontSize: 18,
+        maxFontSize: 26,
+        minGlyphs: 18,
+        maxGlyphs: 32,
+        leftJitter: 2.9,
+      }),
+    [],
+  );
+
+  const foregroundStreams = useMemo(
+    () =>
+      makeBinaryStream(96, {
+        minDelay: 0,
+        maxDelay: 20,
+        minDuration: 15,
+        maxDuration: 30,
+        minOpacity: 0.45,
+        maxOpacity: 1,
+        minFontSize: 12,
+        maxFontSize: 16,
+        minGlyphs: 30,
+        maxGlyphs: 58,
+        leftJitter: 0.95,
+      }),
+    [],
+  );
+
   return (
-    <div className="mascot-figure" aria-hidden="true">
-      <svg viewBox="0 0 120 120" className="mascot-svg" role="presentation">
-        <defs>
-          <linearGradient id="mascotBody" x1="18" y1="20" x2="102" y2="104" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#1B2A43" />
-            <stop offset="1" stopColor="#0B1220" />
-          </linearGradient>
-          <linearGradient id="mascotGlow" x1="30" y1="26" x2="90" y2="92" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#7BA5FF" />
-            <stop offset="1" stopColor="#B8D2FF" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M34 38c0-9.94 8.06-18 18-18h16c9.94 0 18 8.06 18 18v20c0 9.94-8.06 18-18 18H52c-9.94 0-18-8.06-18-18V38Z"
-          fill="url(#mascotBody)"
-          stroke="rgba(148, 163, 184, 0.18)"
-          strokeWidth="2"
-        />
-        <path
-          d="M46 24h28"
-          stroke="url(#mascotGlow)"
-          strokeWidth="5"
-          strokeLinecap="round"
-        />
-        <circle cx="53" cy="48" r="5.5" fill="#DCEBFF" />
-        <circle cx="67" cy="48" r="5.5" fill="#DCEBFF" />
-        <path
-          d="M48 59c3.2 3.8 8 5.8 12 5.8s8.8-2 12-5.8"
-          stroke="#89BAFF"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-        />
-        <path
-          d="M28 72h64"
-          stroke="rgba(148, 163, 184, 0.14)"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M42 72V86"
-          stroke="url(#mascotGlow)"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M78 72V86"
-          stroke="url(#mascotGlow)"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M39 91c5 5 10 7 21 7s16-2 21-7"
-          stroke="rgba(137, 186, 255, 0.8)"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-        <circle cx="26" cy="38" r="5" fill="#89BAFF" />
-        <circle cx="94" cy="74" r="4.5" fill="#89BAFF" />
-      </svg>
-      <span className="mascot-spark mascot-spark-a" />
-      <span className="mascot-spark mascot-spark-b" />
+    <div className="binary-rain" aria-hidden="true">
+      <div className="binary-rain-haze binary-rain-haze--back" />
+      <div className="binary-rain-layer binary-rain-layer--back">
+        {backgroundStreams.map((stream) => (
+          <span
+            key={stream.id}
+            className="binary-column binary-column--back"
+            style={{
+              "--column-left": stream.left,
+              "--column-opacity": stream.opacity,
+              "--column-duration": `${stream.duration}s`,
+              "--column-delay": `${-stream.delay}s`,
+              "--column-size": `${stream.fontSize}px`,
+            }}
+          >
+            <span className="binary-column__track">
+              <span className="binary-column__segment">{stream.glyphs}</span>
+              <span className="binary-column__segment">{stream.glyphs}</span>
+            </span>
+          </span>
+        ))}
+      </div>
+
+      <div className="binary-rain-layer binary-rain-layer--front">
+        {foregroundStreams.map((stream) => (
+          <span
+            key={stream.id}
+            className="binary-column binary-column--front"
+            style={{
+              "--column-left": stream.left,
+              "--column-opacity": stream.opacity,
+              "--column-duration": `${stream.duration}s`,
+              "--column-delay": `${-stream.delay}s`,
+              "--column-size": `${stream.fontSize}px`,
+            }}
+          >
+            <span className="binary-column__track">
+              <span className="binary-column__segment">{stream.glyphs}</span>
+              <span className="binary-column__segment">{stream.glyphs}</span>
+            </span>
+          </span>
+        ))}
+      </div>
+
+      <div className="binary-rain-vignette" />
     </div>
   );
 }
@@ -600,16 +653,32 @@ export default function App() {
     document.title = "Bihev Rawal | Software Developer";
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const updateParallax = (event) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 24;
+      const y = (event.clientY / window.innerHeight - 0.5) * 24;
+      root.style.setProperty("--rain-parallax-x", `${x}px`);
+      root.style.setProperty("--rain-parallax-y", `${y}px`);
+    };
+
+    const resetParallax = () => {
+      root.style.setProperty("--rain-parallax-x", "0px");
+      root.style.setProperty("--rain-parallax-y", "0px");
+    };
+
+    window.addEventListener("pointermove", updateParallax, { passive: true });
+    window.addEventListener("pointerleave", resetParallax);
+
+    return () => {
+      window.removeEventListener("pointermove", updateParallax);
+      window.removeEventListener("pointerleave", resetParallax);
+    };
+  }, []);
+
   return (
     <>
-      <div className="site-bg" aria-hidden="true">
-        <div className="orb orb-a" />
-        <div className="orb orb-b" />
-        <div className="orb orb-c" />
-        <div className="grid" />
-      </div>
-
-      <MascotFigure />
+      <BinaryRainBackground />
 
       <Header onOpenResume={() => setResumeOpen(true)} />
 
