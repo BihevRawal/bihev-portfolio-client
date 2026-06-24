@@ -152,7 +152,7 @@ function makeBinaryStream(columnCount, options = {}) {
 function BinaryRainBackground() {
   const backgroundStreams = useMemo(
     () =>
-      makeBinaryStream(34, {
+      makeBinaryStream(18, {
         minDelay: 0,
         maxDelay: 12,
         minDuration: 45,
@@ -170,7 +170,7 @@ function BinaryRainBackground() {
 
   const foregroundStreams = useMemo(
     () =>
-      makeBinaryStream(96, {
+      makeBinaryStream(56, {
         minDelay: 0,
         maxDelay: 20,
         minDuration: 15,
@@ -655,14 +655,33 @@ export default function App() {
 
   useEffect(() => {
     const root = document.documentElement;
+    let frameId = 0;
+    let lastX = 0;
+    let lastY = 0;
     const updateParallax = (event) => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 24;
-      const y = (event.clientY / window.innerHeight - 0.5) * 24;
-      root.style.setProperty("--rain-parallax-x", `${x}px`);
-      root.style.setProperty("--rain-parallax-y", `${y}px`);
+      const nextX = (event.clientX / window.innerWidth - 0.5) * 24;
+      const nextY = (event.clientY / window.innerHeight - 0.5) * 24;
+
+      if (frameId) return;
+
+      frameId = window.requestAnimationFrame(() => {
+        if (nextX !== lastX || nextY !== lastY) {
+          root.style.setProperty("--rain-parallax-x", `${nextX}px`);
+          root.style.setProperty("--rain-parallax-y", `${nextY}px`);
+          lastX = nextX;
+          lastY = nextY;
+        }
+        frameId = 0;
+      });
     };
 
     const resetParallax = () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+      lastX = 0;
+      lastY = 0;
       root.style.setProperty("--rain-parallax-x", "0px");
       root.style.setProperty("--rain-parallax-y", "0px");
     };
@@ -671,6 +690,9 @@ export default function App() {
     window.addEventListener("pointerleave", resetParallax);
 
     return () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+      }
       window.removeEventListener("pointermove", updateParallax);
       window.removeEventListener("pointerleave", resetParallax);
     };
