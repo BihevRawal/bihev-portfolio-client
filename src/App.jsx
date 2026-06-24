@@ -1,52 +1,102 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const PROOF_POINTS = [
+const PROJECTS = [
   {
-    title: "Property rental platform",
-    detail:
-      "Built a MERN-stack product that supported thousands of active users with a clean booking and management flow.",
-    result: "Scaled to real traffic",
+    name: "Property Rental Platform",
+    type: "Full-stack product",
+    summary:
+      "Built a MERN-based rental platform that supported thousands of active users with a clear booking and management flow.",
+    impact: "Supported real production traffic",
+    tech: ["React", "Node.js", "Express", "MongoDB", "AWS"],
   },
   {
-    title: "Mobile-first redesign",
-    detail:
-      "Reworked the front end in React and improved mobile engagement by 40% through clearer layout and faster interaction.",
-    result: "+40% engagement",
+    name: "Mobile-first React Redesign",
+    type: "UX and performance overhaul",
+    summary:
+      "Reworked the front end in React, lifting mobile engagement by 40% with sharper hierarchy, lighter interactions, and faster rendering.",
+    impact: "+40% mobile engagement",
+    tech: ["React", "Responsive UI", "Performance tuning"],
   },
   {
-    title: "Secure authentication",
-    detail:
-      "Architected JWT-based login and data encryption to strengthen access control across user roles.",
-    result: "Safer user access",
+    name: "Security and Auth Layer",
+    type: "Backend hardening",
+    summary:
+      "Architected JWT-based authentication with data encryption and role-aware access controls for safer user sessions.",
+    impact: "Safer access for every user role",
+    tech: ["Node.js", "Express", "JWT", "Encryption"],
   },
   {
-    title: "Delivery automation",
-    detail:
-      "Established AWS CI/CD pipelines and reduced release friction while keeping uptime above 99%.",
-    result: ">99% uptime",
+    name: "AWS CI/CD Pipeline",
+    type: "Delivery automation",
+    summary:
+      "Established CI/CD on AWS to reduce release friction and keep production uptime above 99 percent.",
+    impact: ">99% uptime",
+    tech: ["AWS", "CI/CD", "Automation", "Deployment"],
   },
 ];
 
-const STACK_GROUPS = [
+const EXPERIENCE = [
   {
-    name: "Front end",
-    items: ["React", "JavaScript", "Responsive UI", "Design systems"],
+    period: "Current profile",
+    title: "Full-stack Developer | Mobile & Cloud Specialist",
+    org: "Bihev Rawal, Brisbane, Australia",
+    bullets: [
+      "Builds React front ends, Node.js APIs, and deployment pipelines.",
+      "Works across web, Android, Firebase, MongoDB, MySQL, and AWS.",
+      "Focuses on fast, reliable interfaces and maintainable delivery.",
+    ],
   },
   {
-    name: "Back end",
-    items: ["Node.js", "Express", "REST APIs", "JWT auth"],
+    period: "Selected experience",
+    title: "WebConnect Nepal Pvt. Ltd.",
+    org: "Software delivery and digital solutions",
+    bullets: [
+      "Engineered and launched a property rental platform using the MERN stack.",
+      "Optimized backend performance by 25 percent with more efficient REST APIs.",
+      "Mentored two junior developers and improved team output.",
+    ],
   },
   {
-    name: "Cloud & mobile",
-    items: ["AWS", "Firebase", "Android", "CI/CD"],
+    period: "Education and certification",
+    title: "Master of IT | AWS Cloud Practitioner",
+    org: "Mobile App Development | 2025",
+    bullets: [
+      "Completed a Master of Information Technology in Mobile App Development.",
+      "Earned AWS Certified Cloud Practitioner in 2025.",
+      "Keeps a practical balance of engineering depth and product delivery.",
+    ],
+  },
+];
+
+const STACK = [
+  {
+    title: "Front end",
+    items: ["React", "JavaScript", "Vite", "Responsive UI", "Design systems"],
+  },
+  {
+    title: "Back end",
+    items: ["Node.js", "Express", "REST APIs", "JWT", "Encryption"],
+  },
+  {
+    title: "Data and cloud",
+    items: ["MongoDB", "MySQL", "AWS", "Firebase", "Heroku"],
+  },
+  {
+    title: "Delivery",
+    items: ["CI/CD", "GitHub Actions", "Performance tuning", "Release automation"],
   },
 ];
 
 const HIGHLIGHTS = [
-  "5+ years of delivery",
-  "React, Node.js, AWS",
-  "Mobile + cloud focus",
+  { value: "5+ years", label: "shipping software" },
+  { value: "40%", label: "mobile engagement lift" },
+  { value: "25%", label: "backend perf gain" },
+  { value: ">99%", label: "deployment uptime" },
 ];
+
+function LogoMark({ className = "" }) {
+  return <img className={className} src="/logo.svg" alt="Bihev Rawal logo" />;
+}
 
 function ArrowIcon() {
   return (
@@ -56,10 +106,12 @@ function ArrowIcon() {
   );
 }
 
-function SparkIcon() {
+function TerminalIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2Z" />
+      <path d="M4 6h16v12H4z" />
+      <path d="m7 10 3 2-3 2" />
+      <path d="M12 14h5" />
     </svg>
   );
 }
@@ -68,73 +120,78 @@ function Header({ onOpenResume }) {
   return (
     <header className="site-header">
       <a className="brand" href="#top" aria-label="Bihev Rawal home">
-        <img src="/logo.png" alt="Bihev Rawal logo" className="brand-mark" />
-        <span className="brand-text">
+        <LogoMark className="brand-mark" />
+        <span className="brand-copy">
           <strong>Bihev Rawal</strong>
           <span>Full-stack developer</span>
         </span>
       </a>
 
       <nav className="site-nav" aria-label="Primary">
-        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
         <a href="#stack">Stack</a>
-        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <div className="header-actions">
-        <button type="button" className="ghost-button" onClick={onOpenResume}>
+        <button type="button" className="secondary-button" onClick={onOpenResume}>
           Resume
         </button>
-        <a href="#contact" className="cta-button">
-          Contact
+        <a href="#contact" className="primary-button">
+          Let&apos;s talk
         </a>
       </div>
     </header>
   );
 }
 
-function Hero() {
+function Hero({ onOpenResume }) {
   return (
-    <section className="hero-shell" id="top">
-      <div className="hero-copy reveal">
-        <div className="hero-kicker">Portfolio</div>
-        <h1>Building fast, calm, and useful web experiences.</h1>
+    <section className="hero" id="top">
+      <div className="hero-copy">
+        <p className="eyebrow">Software developer portfolio</p>
+        <h1>Building reliable software for web, mobile, and cloud delivery.</h1>
         <p className="hero-text">
-          I’m Bihev Rawal, a full-stack developer focused on React, Node.js,
-          AWS, and Android. I design and ship products that feel precise,
-          responsive, and ready for real users.
+          I&apos;m Bihev Rawal, a full-stack developer focused on React, Node.js,
+          AWS, Android, and product quality. I like systems that are easy to use,
+          fast to ship, and boring in production.
         </p>
 
         <div className="hero-actions">
-          <a href="#work" className="cta-button">
-            See recent work
+          <a href="#projects" className="primary-button">
+            View work
+            <ArrowIcon />
           </a>
-          <a href="#contact" className="ghost-button">
-            Start a project
+          <a href="#contact" className="secondary-button">
+            Contact me
           </a>
+          <button type="button" className="ghost-button" onClick={onOpenResume}>
+            Open resume
+          </button>
         </div>
 
-        <div className="hero-highlights" aria-label="Key highlights">
+        <div className="hero-highlights" aria-label="Highlights">
           {HIGHLIGHTS.map((item) => (
-            <div key={item} className="highlight-pill">
-              <SparkIcon />
-              <span>{item}</span>
-            </div>
+            <article key={item.label} className="metric-card">
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </article>
           ))}
         </div>
       </div>
 
-      <aside className="hero-aside reveal">
+      <aside className="hero-panel">
         <div className="profile-card">
           <div className="profile-head">
-            <img src="/logo.png" alt="" className="profile-mark" />
+            <LogoMark className="profile-mark" />
             <div>
               <p className="profile-name">Bihev Rawal</p>
-              <p className="profile-role">Full-stack developer · Brisbane</p>
+              <p className="profile-role">Full-stack Developer · Brisbane</p>
             </div>
           </div>
 
-          <div className="status-row">
+          <div className="status-pill">
             <span className="status-dot" />
             Open for freelance and product roles
           </div>
@@ -142,28 +199,35 @@ function Hero() {
           <div className="profile-grid">
             <div>
               <span>Focus</span>
-              <strong>React, Node, AWS</strong>
+              <strong>React, Node.js, AWS</strong>
             </div>
             <div>
-              <span>Delivery</span>
-              <strong>Mobile + cloud systems</strong>
+              <span>Specialties</span>
+              <strong>Mobile, APIs, delivery pipelines</strong>
             </div>
             <div>
-              <span>Proof</span>
-              <strong>40% mobile lift, 25% faster APIs</strong>
+              <span>Stack depth</span>
+              <strong>Web, Android, Firebase, MongoDB</strong>
             </div>
           </div>
 
-          <div className="code-panel" aria-label="Current focus">
-            <div className="code-panel-top">
-              <span>Now shipping</span>
-              <span className="chip">React / AWS</span>
+          <div className="code-window" aria-label="Developer snapshot">
+            <div className="code-window-top">
+              <span>
+                <TerminalIcon />
+                Current stack
+              </span>
+              <span className="code-chip">Production ready</span>
             </div>
-            <pre>{`const focus = [
-  "lean interfaces",
-  "secure APIs",
-  "calm deployment"
-];`}</pre>
+            <pre>{`const profile = {
+  role: "full-stack developer",
+  focus: ["React", "Node.js", "AWS", "Android"],
+  strengths: [
+    "performance tuning",
+    "secure auth",
+    "deployment automation"
+  ]
+};`}</pre>
           </div>
         </div>
       </aside>
@@ -171,20 +235,71 @@ function Hero() {
   );
 }
 
-function ProofGrid() {
+function ProjectCard({ project }) {
   return (
-    <section id="work" className="content-section">
-      <div className="section-heading">
-        <p>Selected proof</p>
-        <h2>Recent work and outcomes from the resume.</h2>
+    <article className="project-card">
+      <div className="project-top">
+        <span>{project.type}</span>
+        <strong>{project.impact}</strong>
+      </div>
+      <h3>{project.name}</h3>
+      <p>{project.summary}</p>
+      <div className="chip-row">
+        {project.tech.map((tech) => (
+          <span key={tech} className="chip">
+            {tech}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function ProjectsSection() {
+  return (
+    <section className="section" id="projects">
+      <div className="section-head">
+        <p>Projects</p>
+        <h2>Selected work with measurable outcomes.</h2>
+        <span className="section-note">
+          These are the projects and wins reflected in my resume and recent work.
+        </span>
       </div>
 
-      <div className="proof-grid">
-        {PROOF_POINTS.map((item) => (
-          <article key={item.title} className="proof-card">
-            <span className="proof-index">{item.result}</span>
+      <div className="projects-grid">
+        {PROJECTS.map((project) => (
+          <ProjectCard key={project.name} project={project} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ExperienceSection() {
+  return (
+    <section className="section" id="experience">
+      <div className="section-head">
+        <p>Experience</p>
+        <h2>Practical delivery across products, APIs, and teams.</h2>
+        <span className="section-note">
+          The short version: I build the thing, keep it stable, and help others
+          ship with it.
+        </span>
+      </div>
+
+      <div className="timeline">
+        {EXPERIENCE.map((item) => (
+          <article key={item.title} className="timeline-card">
+            <div className="timeline-meta">
+              <span>{item.period}</span>
+              <strong>{item.org}</strong>
+            </div>
             <h3>{item.title}</h3>
-            <p>{item.detail}</p>
+            <ul>
+              {item.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
           </article>
         ))}
       </div>
@@ -194,16 +309,16 @@ function ProofGrid() {
 
 function StackSection() {
   return (
-    <section id="stack" className="content-section stacked">
-      <div className="section-heading">
+    <section className="section" id="stack">
+      <div className="section-head">
         <p>Stack</p>
-        <h2>Tools I reach for when the job needs to ship cleanly.</h2>
+        <h2>Tools I use when the output needs to be clean and dependable.</h2>
       </div>
 
       <div className="stack-grid">
-        {STACK_GROUPS.map((group) => (
-          <article key={group.name} className="stack-card">
-            <h3>{group.name}</h3>
+        {STACK.map((group) => (
+          <article key={group.title} className="stack-card">
+            <h3>{group.title}</h3>
             <div className="chip-row">
               {group.items.map((item) => (
                 <span key={item} className="chip">
@@ -220,38 +335,39 @@ function StackSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="content-section about-grid">
-      <div className="about-copy">
-        <div className="section-heading">
-          <p>About</p>
-          <h2>Full-stack work with a bias toward clarity and performance.</h2>
-        </div>
-
-        <p>
-          My background spans responsive front-end systems, secure back-end
-          services, and cloud delivery. I like products where the interface is
-          straightforward, the architecture is measurable, and the handoff to
-          production feels boring in the best way.
-        </p>
+    <section className="section" id="about">
+      <div className="section-head">
+        <p>About</p>
+        <h2>Engineer first, product-minded second, always shipping.</h2>
+        <span className="section-note">
+          I like simple interfaces, understandable architecture, and reliable
+          handoffs to production.
+        </span>
       </div>
 
-      <div className="about-panel">
-        <div className="about-row">
-          <span>Experience</span>
-          <strong>5+ years</strong>
-        </div>
-        <div className="about-row">
-          <span>Education</span>
-          <strong>Master of IT, Mobile App Development</strong>
-        </div>
-        <div className="about-row">
-          <span>Certification</span>
-          <strong>AWS Cloud Practitioner, 2025</strong>
-        </div>
-        <div className="about-row">
-          <span>Working style</span>
-          <strong>Lean, collaborative, delivery-focused</strong>
-        </div>
+      <div className="about-grid">
+        <article className="about-card">
+          <h3>What I build</h3>
+          <p>
+            Full-stack web apps, API layers, mobile-friendly interfaces, and the
+            deployment plumbing that keeps releases sane.
+          </p>
+        </article>
+        <article className="about-card">
+          <h3>What I optimize</h3>
+          <p>
+            Performance, auth flows, responsive behavior, maintainability, and
+            the small details that make software feel trustworthy.
+          </p>
+        </article>
+        <article className="about-card">
+          <h3>What I know about you</h3>
+          <p>
+            You are Bihev Rawal, a Brisbane-based full-stack developer with 5+
+            years of experience, a Master of IT in Mobile App Development, and an
+            AWS Cloud Practitioner certification from 2025.
+          </p>
+        </article>
       </div>
     </section>
   );
@@ -259,28 +375,49 @@ function AboutSection() {
 
 function ContactSection({ onOpenResume }) {
   return (
-    <section id="contact" className="content-section contact-section">
+    <section className="section" id="contact">
       <div className="contact-card">
-        <div className="section-heading">
+        <div className="section-head">
           <p>Contact</p>
-          <h2>Open to freelance, product teams, and focused builds.</h2>
+          <h2>Open to freelance work, product teams, and focused builds.</h2>
         </div>
 
-        <p className="contact-text">
+        <p className="contact-copy">
           If you need a React front end, a Node API, a deployment pipeline, or a
           mobile-first rebuild, email me or connect on LinkedIn.
         </p>
 
-        <div className="contact-links">
-          <a href="mailto:bihevr@gmail.com" className="cta-button">
-            Email bihevr@gmail.com
+        <div className="contact-details">
+          <div>
+            <span>Email</span>
+            <a href="mailto:bihevr@gmail.com">bihevr@gmail.com</a>
+          </div>
+          <div>
+            <span>LinkedIn</span>
+            <a
+              href="https://linkedin.com/in/bihev-rawal"
+              target="_blank"
+              rel="noreferrer"
+            >
+              linkedin.com/in/bihev-rawal
+            </a>
+          </div>
+          <div>
+            <span>Location</span>
+            <strong>Brisbane, Australia</strong>
+          </div>
+        </div>
+
+        <div className="contact-actions">
+          <a href="mailto:bihevr@gmail.com" className="primary-button">
+            Email me
             <ArrowIcon />
           </a>
           <a
             href="https://linkedin.com/in/bihev-rawal"
             target="_blank"
             rel="noreferrer"
-            className="ghost-button"
+            className="secondary-button"
           >
             LinkedIn profile
           </a>
@@ -297,16 +434,16 @@ function ResumeModal({ open, onClose }) {
   useEffect(() => {
     if (!open) return undefined;
 
-    const handleKeyDown = (event) => {
+    const onKeyDown = (event) => {
       if (event.key === "Escape") onClose();
     };
 
     document.body.classList.add("modal-open");
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
       document.body.classList.remove("modal-open");
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", onKeyDown);
     };
   }, [open, onClose]);
 
@@ -337,9 +474,15 @@ function ResumeModal({ open, onClose }) {
 function Footer() {
   return (
     <footer className="site-footer">
-      <span>© 2026 Bihev Rawal</span>
-      <span aria-hidden="true">·</span>
-      <span>React · Node · AWS</span>
+      <LogoMark className="footer-mark" />
+      <div>
+        <strong>Bihev Rawal</strong>
+        <span>React · Node.js · AWS · Android</span>
+      </div>
+      <span className="footer-dot" aria-hidden="true">
+        ·
+      </span>
+      <span>Built as a Vite SPA and deployed on Vercel.</span>
     </footer>
   );
 }
@@ -348,7 +491,7 @@ export default function App() {
   const [resumeOpen, setResumeOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "Bihev Rawal • Portfolio";
+    document.title = "Bihev Rawal | Software Developer";
   }, []);
 
   return (
@@ -363,8 +506,9 @@ export default function App() {
       <Header onOpenResume={() => setResumeOpen(true)} />
 
       <main className="page-shell">
-        <Hero />
-        <ProofGrid />
+        <Hero onOpenResume={() => setResumeOpen(true)} />
+        <ProjectsSection />
+        <ExperienceSection />
         <StackSection />
         <AboutSection />
         <ContactSection onOpenResume={() => setResumeOpen(true)} />
