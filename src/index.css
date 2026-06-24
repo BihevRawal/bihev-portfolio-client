@@ -124,7 +124,7 @@ pre {
 
 .binary-rain-layer--back {
   z-index: 1;
-  filter: blur(22px);
+  filter: blur(14px);
   opacity: 0.035;
   transform:
     translate3d(calc(var(--rain-parallax-x, 0px) * 0.18), calc(var(--rain-parallax-y, 0px) * 0.18), 0)
@@ -136,7 +136,7 @@ pre {
   mix-blend-mode: screen;
   transform:
     translate3d(calc(var(--rain-parallax-x, 0px) * 0.42), calc(var(--rain-parallax-y, 0px) * 0.42), 0);
-  filter: blur(0.8px);
+  filter: blur(0.35px);
   opacity: 0.7;
 }
 
@@ -187,7 +187,7 @@ pre {
 }
 
 .binary-column--front .binary-column__segment {
-  filter: blur(1px);
+  filter: blur(0.45px);
 }
 
 @keyframes rainFall {
@@ -393,10 +393,10 @@ pre {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)),
     rgba(12, 18, 30, 0.48);
-  backdrop-filter: blur(32px) saturate(185%);
-  -webkit-backdrop-filter: blur(32px) saturate(185%);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
   box-shadow:
-    0 22px 62px rgba(2, 8, 20, 0.36),
+    0 18px 48px rgba(2, 8, 20, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
   contain: layout paint style;
 }
@@ -455,7 +455,6 @@ pre {
   width: min(100%, 470px);
   padding: 24px;
   border-radius: var(--radius-xl);
-  animation: floatCard 8s ease-in-out infinite;
 }
 
 .profile-head {
@@ -546,8 +545,8 @@ pre {
     rgba(10, 16, 26, 0.46);
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(34px) saturate(190%);
-  -webkit-backdrop-filter: blur(34px) saturate(190%);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
   box-shadow:
     0 18px 42px rgba(2, 8, 20, 0.26),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -897,8 +896,8 @@ pre {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
     rgba(10, 16, 26, 0.34);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
   box-shadow:
     0 16px 34px rgba(2, 8, 20, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.16);
@@ -936,8 +935,8 @@ pre {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
     rgba(10, 16, 26, 0.36);
-  backdrop-filter: blur(38px) saturate(195%);
-  -webkit-backdrop-filter: blur(38px) saturate(195%);
+  backdrop-filter: blur(20px) saturate(165%);
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
   box-shadow:
     0 22px 62px rgba(2, 8, 20, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -1071,8 +1070,8 @@ pre {
     rgba(10, 16, 26, 0.44);
   color: var(--text);
   cursor: pointer;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
 }
 
 .ghost-button {

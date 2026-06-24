@@ -129,6 +129,7 @@ function makeBinaryStream(columnCount, options = {}) {
     minGlyphs = 24,
     maxGlyphs = 42,
     leftJitter = 0.7,
+    leftSpread = 100,
   } = options;
 
   return Array.from({ length: columnCount }, (_, index) => {
@@ -137,12 +138,16 @@ function makeBinaryStream(columnCount, options = {}) {
       Math.random() > 0.5 ? "1" : "0",
     ).join("\n");
 
+    const spreadIndex = columnCount === 1 ? 0.5 : index / (columnCount - 1);
+    const baseLeft = spreadIndex * leftSpread;
+    const leftOffset = (Math.random() - 0.5) * leftJitter * 2;
+
     return {
       id: `${index}-${Math.random().toString(36).slice(2, 8)}`,
       delay: minDelay + Math.random() * (maxDelay - minDelay),
       duration: minDuration + Math.random() * (maxDuration - minDuration),
       fontSize: minFontSize + Math.random() * (maxFontSize - minFontSize),
-      left: `${Math.max(0, Math.min(100, index * leftJitter + Math.random() * 1.6))}%`,
+      left: `${Math.max(0, Math.min(100, baseLeft + leftOffset))}%`,
       opacity: minOpacity + Math.random() * (maxOpacity - minOpacity),
       glyphs,
     };
@@ -152,7 +157,7 @@ function makeBinaryStream(columnCount, options = {}) {
 function BinaryRainBackground() {
   const backgroundStreams = useMemo(
     () =>
-      makeBinaryStream(18, {
+      makeBinaryStream(12, {
         minDelay: 0,
         maxDelay: 12,
         minDuration: 45,
@@ -163,14 +168,15 @@ function BinaryRainBackground() {
         maxFontSize: 26,
         minGlyphs: 18,
         maxGlyphs: 32,
-        leftJitter: 2.9,
+        leftJitter: 2.6,
+        leftSpread: 100,
       }),
     [],
   );
 
   const foregroundStreams = useMemo(
     () =>
-      makeBinaryStream(56, {
+      makeBinaryStream(36, {
         minDelay: 0,
         maxDelay: 20,
         minDuration: 15,
@@ -181,7 +187,8 @@ function BinaryRainBackground() {
         maxFontSize: 16,
         minGlyphs: 30,
         maxGlyphs: 58,
-        leftJitter: 0.95,
+        leftJitter: 1.25,
+        leftSpread: 100,
       }),
     [],
   );
