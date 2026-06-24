@@ -927,18 +927,63 @@ pre {
   gap: 14px;
 }
 
+.contact-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
+    rgba(10, 16, 26, 0.34);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  box-shadow:
+    0 16px 34px rgba(2, 8, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.contact-badge-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+}
+
+.contact-badge span {
+  display: block;
+  color: var(--muted-strong);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.contact-badge strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
 .contact-qr-card {
   display: grid;
   gap: 14px;
   align-content: start;
   padding: 18px;
-  border-radius: var(--radius-xl);
+  border-radius: 28px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
-    rgba(10, 16, 26, 0.44);
-  backdrop-filter: blur(34px) saturate(190%);
-  -webkit-backdrop-filter: blur(34px) saturate(190%);
+    rgba(10, 16, 26, 0.36);
+  backdrop-filter: blur(38px) saturate(195%);
+  -webkit-backdrop-filter: blur(38px) saturate(195%);
   box-shadow:
     0 22px 62px rgba(2, 8, 20, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.18);
@@ -992,10 +1037,10 @@ pre {
 .contact-qr-frame {
   position: relative;
   z-index: 1;
-  padding: 14px;
-  border-radius: 24px;
+  padding: 12px;
+  border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(244, 248, 255, 0.88)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(244, 248, 255, 0.92)),
     #f8fbff;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.8),
@@ -1016,8 +1061,9 @@ pre {
 
 .contact-copy {
   margin: 0;
-  max-width: 66ch;
+  max-width: 56ch;
   color: var(--muted);
+  font-size: 1rem;
 }
 
 .contact-details {
@@ -1027,7 +1073,10 @@ pre {
 }
 
 .contact-actions {
-  margin-top: 8px;
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .primary-button,
@@ -1039,7 +1088,7 @@ pre {
   gap: 10px;
   min-height: 46px;
   padding: 0 16px;
-  border-radius: 999px;
+  border-radius: 22px;
   text-decoration: none;
   transition:
     transform 180ms ease,
@@ -1085,6 +1134,13 @@ pre {
 .secondary-button:hover,
 .ghost-button:hover {
   transform: translateY(-1px);
+}
+
+.contact-actions .primary-button,
+.contact-actions .secondary-button,
+.contact-actions .ghost-button {
+  min-height: 58px;
+  width: 100%;
 }
 
 .secondary-button:hover,
@@ -1284,6 +1340,10 @@ pre {
   .contact-layout {
     grid-template-columns: 1fr;
   }
+
+  .contact-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -1316,6 +1376,10 @@ pre {
   }
 
   .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-actions {
     grid-template-columns: 1fr;
   }
 

@@ -451,6 +451,23 @@ function ContactSection({ onOpenResume }) {
 
         <div className="contact-layout">
           <div className="contact-main">
+            <div className="contact-badge-row" aria-hidden="true">
+              <div className="contact-badge">
+                <LogoMark className="contact-badge-mark" />
+                <div>
+                  <span>Portfolio</span>
+                  <strong>Bihev Rawal</strong>
+                </div>
+              </div>
+              <div className="contact-badge">
+                <span className="contact-badge-dot" />
+                <div>
+                  <span>Availability</span>
+                  <strong>Open for projects</strong>
+                </div>
+              </div>
+            </div>
+
             <p className="contact-copy">
               If you need a React front end, a Node API, a deployment pipeline, or a
               mobile-first rebuild, email me or connect on LinkedIn.
