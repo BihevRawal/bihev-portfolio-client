@@ -116,6 +116,73 @@ function TerminalIcon() {
   );
 }
 
+function MascotFigure() {
+  return (
+    <div className="mascot-figure" aria-hidden="true">
+      <svg viewBox="0 0 120 120" className="mascot-svg" role="presentation">
+        <defs>
+          <linearGradient id="mascotBody" x1="18" y1="20" x2="102" y2="104" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#1B2A43" />
+            <stop offset="1" stopColor="#0B1220" />
+          </linearGradient>
+          <linearGradient id="mascotGlow" x1="30" y1="26" x2="90" y2="92" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#7BA5FF" />
+            <stop offset="1" stopColor="#B8D2FF" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M34 38c0-9.94 8.06-18 18-18h16c9.94 0 18 8.06 18 18v20c0 9.94-8.06 18-18 18H52c-9.94 0-18-8.06-18-18V38Z"
+          fill="url(#mascotBody)"
+          stroke="rgba(148, 163, 184, 0.18)"
+          strokeWidth="2"
+        />
+        <path
+          d="M46 24h28"
+          stroke="url(#mascotGlow)"
+          strokeWidth="5"
+          strokeLinecap="round"
+        />
+        <circle cx="53" cy="48" r="5.5" fill="#DCEBFF" />
+        <circle cx="67" cy="48" r="5.5" fill="#DCEBFF" />
+        <path
+          d="M48 59c3.2 3.8 8 5.8 12 5.8s8.8-2 12-5.8"
+          stroke="#89BAFF"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M28 72h64"
+          stroke="rgba(148, 163, 184, 0.14)"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M42 72V86"
+          stroke="url(#mascotGlow)"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <path
+          d="M78 72V86"
+          stroke="url(#mascotGlow)"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <path
+          d="M39 91c5 5 10 7 21 7s16-2 21-7"
+          stroke="rgba(137, 186, 255, 0.8)"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <circle cx="26" cy="38" r="5" fill="#89BAFF" />
+        <circle cx="94" cy="74" r="4.5" fill="#89BAFF" />
+      </svg>
+      <span className="mascot-spark mascot-spark-a" />
+      <span className="mascot-spark mascot-spark-b" />
+    </div>
+  );
+}
+
 function Header({ onOpenResume }) {
   return (
     <header className="site-header">
@@ -502,6 +569,8 @@ export default function App() {
         <div className="orb orb-c" />
         <div className="grid" />
       </div>
+
+      <MascotFigure />
 
       <Header onOpenResume={() => setResumeOpen(true)} />
 
