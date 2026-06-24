@@ -85,8 +85,8 @@ pre {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 18%, rgba(0, 255, 102, 0.08), transparent 34%),
-    linear-gradient(180deg, #050505 0%, #050505 55%, #040704 100%);
+    radial-gradient(circle at 50% 18%, rgba(0, 255, 102, 0.05), transparent 38%),
+    linear-gradient(180deg, #040404 0%, #040404 45%, #020302 100%);
 }
 
 .binary-rain-haze,
@@ -97,21 +97,21 @@ pre {
 }
 
 .binary-rain-haze {
-  filter: blur(12px);
-  opacity: 0.06;
+  filter: blur(18px);
+  opacity: 0.035;
   mix-blend-mode: screen;
 }
 
 .binary-rain-haze--back {
   background:
-    linear-gradient(180deg, rgba(0, 255, 102, 0.12), transparent 30%),
-    radial-gradient(circle at 50% 45%, rgba(0, 255, 102, 0.2), transparent 45%);
+    linear-gradient(180deg, rgba(0, 255, 102, 0.08), transparent 34%),
+    radial-gradient(circle at 50% 45%, rgba(0, 255, 102, 0.12), transparent 52%);
 }
 
 .binary-rain-vignette {
   background:
-    radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.1) 55%, rgba(0, 0, 0, 0.6) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.42));
+    radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.16) 52%, rgba(0, 0, 0, 0.74) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.5));
   z-index: 0;
 }
 
@@ -124,8 +124,8 @@ pre {
 
 .binary-rain-layer--back {
   z-index: 1;
-  filter: blur(12px);
-  opacity: 0.08;
+  filter: blur(22px);
+  opacity: 0.035;
   transform:
     translate3d(calc(var(--rain-parallax-x, 0px) * 0.18), calc(var(--rain-parallax-y, 0px) * 0.18), 0)
     scale(1.2);
@@ -136,6 +136,8 @@ pre {
   mix-blend-mode: screen;
   transform:
     translate3d(calc(var(--rain-parallax-x, 0px) * 0.42), calc(var(--rain-parallax-y, 0px) * 0.42), 0);
+  filter: blur(0.8px);
+  opacity: 0.7;
 }
 
 .binary-column {
@@ -152,22 +154,22 @@ pre {
   line-height: 0.95;
   letter-spacing: 0.02em;
   text-shadow:
-    0 0 8px rgba(0, 255, 102, 0.55),
-    0 0 18px rgba(0, 255, 102, 0.22);
+    0 0 6px rgba(0, 255, 102, 0.3),
+    0 0 14px rgba(0, 255, 102, 0.12);
   white-space: pre;
   user-select: none;
   overflow: hidden;
 }
 
 .binary-column--back {
-  color: rgba(0, 255, 102, 0.65);
+  color: rgba(0, 255, 102, 0.3);
   text-shadow:
-    0 0 16px rgba(0, 255, 102, 0.34),
-    0 0 28px rgba(0, 255, 102, 0.12);
+    0 0 18px rgba(0, 255, 102, 0.12),
+    0 0 30px rgba(0, 255, 102, 0.06);
 }
 
 .binary-column--front {
-  color: #b3ffd2;
+  color: rgba(194, 255, 217, 0.74);
 }
 
 .binary-column__track {
@@ -185,7 +187,7 @@ pre {
 }
 
 .binary-column--front .binary-column__segment {
-  filter: blur(0.15px);
+  filter: blur(1px);
 }
 
 @keyframes rainFall {
