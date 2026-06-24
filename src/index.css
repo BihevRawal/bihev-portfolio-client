@@ -173,6 +173,7 @@ pre {
   background: rgba(7, 11, 18, 0.78);
   backdrop-filter: blur(18px);
   box-shadow: 0 18px 48px rgba(2, 8, 20, 0.24);
+  animation: fadeDrop 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .brand {
@@ -262,10 +263,12 @@ pre {
   align-items: center;
   min-height: calc(100vh - 120px);
   padding: 34px 0 18px;
+  animation: fadeRise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .hero-copy {
   padding: 24px 0;
+  animation: riseIn 900ms 80ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .eyebrow,
@@ -309,6 +312,26 @@ pre {
   margin-top: 28px;
 }
 
+.hero-highlights .metric-card {
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.hero-highlights .metric-card:nth-child(1) {
+  animation-delay: 120ms;
+}
+
+.hero-highlights .metric-card:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.hero-highlights .metric-card:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.hero-highlights .metric-card:nth-child(4) {
+  animation-delay: 300ms;
+}
+
 .metric-card,
 .project-card,
 .timeline-card,
@@ -341,12 +364,14 @@ pre {
 .hero-panel {
   display: flex;
   justify-content: flex-end;
+  animation: riseIn 900ms 180ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .profile-card {
   width: min(100%, 470px);
   padding: 24px;
   border-radius: var(--radius-xl);
+  animation: floatCard 8s ease-in-out infinite;
 }
 
 .profile-head {
@@ -387,6 +412,7 @@ pre {
   border-radius: 999px;
   background: linear-gradient(180deg, var(--accent-2), #d9e9ff);
   box-shadow: 0 0 18px rgba(137, 186, 255, 0.42);
+  animation: statusPulse 2.8s ease-in-out infinite;
 }
 
 .profile-grid {
@@ -429,6 +455,18 @@ pre {
   background:
     radial-gradient(circle at top left, rgba(79, 119, 255, 0.12), transparent 36%),
     rgba(255, 255, 255, 0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.code-window::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(137, 186, 255, 0.08) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: codeSweep 7s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .code-window-top {
@@ -469,6 +507,8 @@ pre {
 }
 
 .code-window pre {
+  position: relative;
+  z-index: 1;
   color: #dce6f5;
   font-size: 0.94rem;
   line-height: 1.62;
@@ -477,6 +517,27 @@ pre {
 
 .section {
   padding: 44px 0 0;
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.page-shell > .section:nth-of-type(1) {
+  animation-delay: 120ms;
+}
+
+.page-shell > .section:nth-of-type(2) {
+  animation-delay: 200ms;
+}
+
+.page-shell > .section:nth-of-type(3) {
+  animation-delay: 280ms;
+}
+
+.page-shell > .section:nth-of-type(4) {
+  animation-delay: 360ms;
+}
+
+.page-shell > .section:nth-of-type(5) {
+  animation-delay: 440ms;
 }
 
 .section-head {
@@ -502,6 +563,26 @@ pre {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+}
+
+.projects-grid .project-card {
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.projects-grid .project-card:nth-child(1) {
+  animation-delay: 80ms;
+}
+
+.projects-grid .project-card:nth-child(2) {
+  animation-delay: 160ms;
+}
+
+.projects-grid .project-card:nth-child(3) {
+  animation-delay: 240ms;
+}
+
+.projects-grid .project-card:nth-child(4) {
+  animation-delay: 320ms;
 }
 
 .project-card {
@@ -566,6 +647,22 @@ pre {
   gap: 16px;
 }
 
+.timeline .timeline-card {
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.timeline .timeline-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.timeline .timeline-card:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.timeline .timeline-card:nth-child(3) {
+  animation-delay: 260ms;
+}
+
 .timeline-card {
   padding: 22px;
   border-radius: var(--radius-xl);
@@ -604,6 +701,26 @@ pre {
   gap: 16px;
 }
 
+.stack-grid .stack-card {
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.stack-grid .stack-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.stack-grid .stack-card:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.stack-grid .stack-card:nth-child(3) {
+  animation-delay: 260ms;
+}
+
+.stack-grid .stack-card:nth-child(4) {
+  animation-delay: 340ms;
+}
+
 .stack-card {
   padding: 22px;
   border-radius: var(--radius-xl);
@@ -614,6 +731,22 @@ pre {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+}
+
+.about-grid .about-card {
+  animation: riseIn 760ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.about-grid .about-card:nth-child(1) {
+  animation-delay: 100ms;
+}
+
+.about-grid .about-card:nth-child(2) {
+  animation-delay: 180ms;
+}
+
+.about-grid .about-card:nth-child(3) {
+  animation-delay: 260ms;
 }
 
 .about-card {
@@ -633,6 +766,7 @@ pre {
   border-radius: var(--radius-xl);
   display: grid;
   gap: 14px;
+  animation: riseIn 760ms 160ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .contact-copy {
@@ -706,6 +840,71 @@ pre {
 
 .primary-button:hover {
   box-shadow: 0 20px 40px rgba(79, 119, 255, 0.24);
+}
+
+@keyframes fadeDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes statusPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.84;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+}
+
+@keyframes codeSweep {
+  0%,
+  68% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 .site-footer {
@@ -871,7 +1070,21 @@ pre {
   .orb,
   .primary-button,
   .secondary-button,
-  .ghost-button {
+  .ghost-button,
+  .site-header,
+  .hero,
+  .hero-copy,
+  .hero-panel,
+  .profile-card,
+  .metric-card,
+  .project-card,
+  .timeline-card,
+  .stack-card,
+  .about-card,
+  .contact-card,
+  .status-dot,
+  .code-window::after,
+  .section {
     animation: none !important;
     transition: none !important;
   }
