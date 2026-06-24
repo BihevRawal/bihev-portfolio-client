@@ -1,435 +1,378 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-/* -------------------- tiny utils -------------------- */
-const faviconFor = (url) => {
-  try {
-    const { hostname } = new URL(url);
-    return `https://icons.duckduckgo.com/ip3/${hostname}.ico`;
-  } catch {
-    return "";
-  }
-};
-const host = (url) => {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-};
-
-/* -------------------- hooks -------------------- */
-function useTypewriter(words, speed = 70) {
-  const [text, setText] = useState("");
-  const [i, setI] = useState(0);
-  const [j, setJ] = useState(0);
-  const [del, setDel] = useState(false);
-
-  useEffect(() => {
-    if (!words?.length) return;
-    const w = words[i % words.length];
-    const t = setTimeout(() => {
-      setText(del ? w.slice(0, j - 1) : w.slice(0, j + 1));
-      if (!del && j >= w.length + 2) setDel(true);
-      if (del && j <= 0) {
-        setDel(false);
-        setI((p) => p + 1);
-      }
-      if (del) setJ((p) => p - 1);
-      else setJ((p) => p + 1);
-    }, del ? speed * 0.6 : speed);
-    return () => clearTimeout(t);
-  }, [words, i, j, del, speed]);
-
-  return text;
-}
-
-function useReveal(ref, threshold = 0.2) {
-  useEffect(() => {
-    if (!ref.current) return;
-    const el = ref.current;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            el.classList.add("in");
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [ref, threshold]);
-}
-
-function useTilt(ref, max = 8) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    function onMove(e) {
-      const r = el.getBoundingClientRect();
-      const x = e.clientX - r.left;
-      const y = e.clientY - r.top;
-      const rx = ((y / r.height) - 0.5) * -2 * max;
-      const ry = ((x / r.width) - 0.5) * 2 * max;
-      el.style.setProperty("--rx", rx.toFixed(2) + "deg");
-      el.style.setProperty("--ry", ry.toFixed(2) + "deg");
-    }
-    function onLeave() {
-      el.style.setProperty("--rx", "0deg");
-      el.style.setProperty("--ry", "0deg");
-    }
-    el.addEventListener("mousemove", onMove, { passive: true });
-    el.addEventListener("mouseleave", onLeave);
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-    };
-  }, [ref, max]);
-}
-
-/* -------------------- data (edit freely) -------------------- */
-/* If you have no real projects yet, leave this EMPTY. */
-const PROJECTS = [
-  // 👉 When ready, add objects like:
-  // { title: "Gymscout", description: "...", link: "https://...", image: "https://..." }
+const PROOF_POINTS = [
+  {
+    title: "Property rental platform",
+    detail:
+      "Built a MERN-stack product that supported thousands of active users with a clean booking and management flow.",
+    result: "Scaled to real traffic",
+  },
+  {
+    title: "Mobile-first redesign",
+    detail:
+      "Reworked the front end in React and improved mobile engagement by 40% through clearer layout and faster interaction.",
+    result: "+40% engagement",
+  },
+  {
+    title: "Secure authentication",
+    detail:
+      "Architected JWT-based login and data encryption to strengthen access control across user roles.",
+    result: "Safer user access",
+  },
+  {
+    title: "Delivery automation",
+    detail:
+      "Established AWS CI/CD pipelines and reduced release friction while keeping uptime above 99%.",
+    result: ">99% uptime",
+  },
 ];
 
-/* -------------------- placeholder components -------------------- */
-function PlaceholderCard({ title, blurb }) {
+const STACK_GROUPS = [
+  {
+    name: "Front end",
+    items: ["React", "JavaScript", "Responsive UI", "Design systems"],
+  },
+  {
+    name: "Back end",
+    items: ["Node.js", "Express", "REST APIs", "JWT auth"],
+  },
+  {
+    name: "Cloud & mobile",
+    items: ["AWS", "Firebase", "Android", "CI/CD"],
+  },
+];
+
+const HIGHLIGHTS = [
+  "5+ years of delivery",
+  "React, Node.js, AWS",
+  "Mobile + cloud focus",
+];
+
+function ArrowIcon() {
   return (
-    <div className="project-card placeholder reveal">
-      <div className="thumb">
-        <div className="skeleton media" />
-        <div className="ribbon">Coming Soon</div>
-      </div>
-      <div className="content">
-        <h3>{title}</h3>
-        <p>{blurb}</p>
-        <div className="chip-row">
-          <span className="chip">React</span>
-          <span className="chip">Node</span>
-          <span className="chip">AWS</span>
-        </div>
-      </div>
-    </div>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h13m0 0-6-6m6 6-6 6" />
+    </svg>
   );
 }
 
-function EmptyProjects() {
+function SparkIcon() {
   return (
-    <>
-      <div className="empty-intro card reveal in">
-        <h3>Case studies in progress</h3>
-        <p className="muted">
-          I’m polishing write-ups and code samples. Meanwhile, here’s a preview
-          of the kind of work I do.
-        </p>
-      </div>
-
-      {/* <div className="project-grid">
-        <PlaceholderCard
-          title="Performance Makeover"
-          blurb="Turn a sluggish React app into a 95+ Lighthouse score with code-splitting, image optimization, and memoization."
-        />
-        <PlaceholderCard
-          title="API + Auth Starter"
-          blurb="A clean Node/Express + JWT template with role-based access and CI/CD to AWS."
-        />
-      </div> */}
-
-      <div className="skills-and-services">
-        <div className="card mini reveal in">
-          <h4>What I do</h4>
-          <ul className="tick">
-            <li>Full-stack web apps (React, Node)</li>
-            <li>Deployments on AWS / Vercel</li>
-            <li>UI clones & performance tuning</li>
-          </ul>
-        </div>
-        <div className="card mini reveal in">
-          <h4>Tech I use</h4>
-          <div className="badges">
-            <span>React</span><span>Vite</span><span>Node</span>
-            <span>Express</span><span>AWS</span><span>MongoDB</span>
-            <span>GitHub Actions</span>
-          </div>
-        </div>
-        <div className="card mini reveal in">
-          <h4>Want a demo?</h4>
-          <p className="muted">I can spin up a quick feature demo tailored to your use-case.</p>
-          <a href="#contact" className="btn -primary">Get in touch</a>
-        </div>
-      </div>
-    </>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2Z" />
+    </svg>
   );
 }
 
-/* -------------------- project card (for real items) -------------------- */
-function ProjectCard({ p }) {
-  const ref = useRef(null);
-  useReveal(ref);
-  useTilt(ref);
-
-  const isImage = Boolean(p.image);
-  const href = p.link || p.url || "#";
-
-  return (
-    <a
-      ref={ref}
-      className="project-card reveal"
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <div className={`thumb ${isImage ? "" : "url-card"}`}>
-        {isImage ? (
-          <img src={p.image} alt={`${p.title} preview`} loading="lazy" />
-        ) : (
-          <>
-            <img
-              className="favicon"
-              src={faviconFor(href)}
-              alt=""
-              onError={(e) => (e.currentTarget.style.display = "none")}
-            />
-            <div className="url-lines">
-              <span className="u1">{host(href)}</span>
-              <span className="u2">{href}</span>
-            </div>
-          </>
-        )}
-      </div>
-      <div className="content">
-        <h3>{p.title}</h3>
-        <p>{p.description}</p>
-      </div>
-    </a>
-  );
-}
-
-/* -------------------- hero -------------------- */
-function Hero() {
-  const words = useMemo(
-    () => ["Full-Stack Dev", "React + Node", "AWS + CI/CD", "Mobile & Cloud"],
-    []
-  );
-  const typed = useTypewriter(words, 70);
-
-  return (
-    <section className="hero">
-      <h1>
-        Building <span className="gradient-text">fast</span>, delightful
-        experiences for the web
-      </h1>
-      <p className="subtitle">
-        <span className="typed">{typed}</span>
-      </p>
-      <div className="cta-row">
-        <a href="#projects" className="btn -primary">See Projects</a>
-        <a href="#contact" className="btn -ghost">Get in touch</a>
-      </div>
-      <div className="hero-stats">
-  <div className="kpi">
-    <span className="kpi-icon">⏳</span>
-    <strong>2+</strong>
-    <span>Years Experience</span>
-  </div>
-  <div className="kpi">
-    <span className="kpi-icon">⚡</span>
-    <strong>40%</strong>
-    <span>Higher Engagement</span>
-  </div>
-  <div className="kpi">
-    <span className="kpi-icon">🚀</span>
-    <strong>25%</strong>
-    <span>Less Latency</span>
-  </div>
-</div>
-      
-    </section>
-  );
-}
-
-/* -------------------- header -------------------- */
-function Header() {
-  const [showResume, setShowResume] = useState(false);
-
-  // Prevent background scroll when modal is open + close on Esc
-  useEffect(() => {
-    if (showResume) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-    const onKey = (e) => e.key === "Escape" && setShowResume(false);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.classList.remove("modal-open");
-      window.removeEventListener("keydown", onKey);
-    };
-  }, [showResume]);
-
+function Header({ onOpenResume }) {
   return (
     <header className="site-header">
-      <div className="brand">
-        <img src="/logo.png" alt="BSR Logo" className="logo-img" />
-        <span className="name">Bihev Rawal</span>
-      </div>
+      <a className="brand" href="#top" aria-label="Bihev Rawal home">
+        <img src="/logo.png" alt="Bihev Rawal logo" className="brand-mark" />
+        <span className="brand-text">
+          <strong>Bihev Rawal</strong>
+          <span>Full-stack developer</span>
+        </span>
+      </a>
 
-      <div className="nav-center">
-        <button
-          type="button"
-          onClick={() => setShowResume(true)}
-          className="center-badge center-badge-btn"
-          aria-haspopup="dialog"
-          aria-controls="resume-modal"
-          aria-label="Open resume preview"
-        >
-          <span className="pulse-dot" />
-          <span className="center-text">Resume</span>
-          <span className="download-icon" aria-hidden="true">👁</span>
-          <span className="shine" aria-hidden="true" />
-        </button>
-      </div>
-
-      <nav className="nav">
-        <a href="#projects">Projects</a>
+      <nav className="site-nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#stack">Stack</a>
         <a href="#about">About</a>
-        <a href="#contact" className="btn -primary">Contact</a>
       </nav>
 
-      {/* Centered, contained modal */}
-      {showResume && (
-        <div
-          id="resume-modal"
-          className="modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Resume preview"
-          onClick={() => setShowResume(false)}
-        >
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="modal-close"
-              onClick={() => setShowResume(false)}
-              aria-label="Close resume preview"
-            >
-              ✖
-            </button>
-
-            {/* View-only PDF (hide default toolbar where supported) */}
-            <iframe
-              // The hash params hide Chrome/Edge toolbar; still view-only.
-              src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
-              title="Resume Preview"
-              className="resume-frame"
-            />
-          </div>
-        </div>
-      )}
+      <div className="header-actions">
+        <button type="button" className="ghost-button" onClick={onOpenResume}>
+          Resume
+        </button>
+        <a href="#contact" className="cta-button">
+          Contact
+        </a>
+      </div>
     </header>
   );
 }
 
-/* -------------------- footer -------------------- */
+function Hero() {
+  return (
+    <section className="hero-shell" id="top">
+      <div className="hero-copy reveal">
+        <div className="hero-kicker">Portfolio</div>
+        <h1>Building fast, calm, and useful web experiences.</h1>
+        <p className="hero-text">
+          I’m Bihev Rawal, a full-stack developer focused on React, Node.js,
+          AWS, and Android. I design and ship products that feel precise,
+          responsive, and ready for real users.
+        </p>
+
+        <div className="hero-actions">
+          <a href="#work" className="cta-button">
+            See recent work
+          </a>
+          <a href="#contact" className="ghost-button">
+            Start a project
+          </a>
+        </div>
+
+        <div className="hero-highlights" aria-label="Key highlights">
+          {HIGHLIGHTS.map((item) => (
+            <div key={item} className="highlight-pill">
+              <SparkIcon />
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <aside className="hero-aside reveal">
+        <div className="profile-card">
+          <div className="profile-head">
+            <img src="/logo.png" alt="" className="profile-mark" />
+            <div>
+              <p className="profile-name">Bihev Rawal</p>
+              <p className="profile-role">Full-stack developer · Brisbane</p>
+            </div>
+          </div>
+
+          <div className="status-row">
+            <span className="status-dot" />
+            Open for freelance and product roles
+          </div>
+
+          <div className="profile-grid">
+            <div>
+              <span>Focus</span>
+              <strong>React, Node, AWS</strong>
+            </div>
+            <div>
+              <span>Delivery</span>
+              <strong>Mobile + cloud systems</strong>
+            </div>
+            <div>
+              <span>Proof</span>
+              <strong>40% mobile lift, 25% faster APIs</strong>
+            </div>
+          </div>
+
+          <div className="code-panel" aria-label="Current focus">
+            <div className="code-panel-top">
+              <span>Now shipping</span>
+              <span className="chip">React / AWS</span>
+            </div>
+            <pre>{`const focus = [
+  "lean interfaces",
+  "secure APIs",
+  "calm deployment"
+];`}</pre>
+          </div>
+        </div>
+      </aside>
+    </section>
+  );
+}
+
+function ProofGrid() {
+  return (
+    <section id="work" className="content-section">
+      <div className="section-heading">
+        <p>Selected proof</p>
+        <h2>Recent work and outcomes from the resume.</h2>
+      </div>
+
+      <div className="proof-grid">
+        {PROOF_POINTS.map((item) => (
+          <article key={item.title} className="proof-card">
+            <span className="proof-index">{item.result}</span>
+            <h3>{item.title}</h3>
+            <p>{item.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function StackSection() {
+  return (
+    <section id="stack" className="content-section stacked">
+      <div className="section-heading">
+        <p>Stack</p>
+        <h2>Tools I reach for when the job needs to ship cleanly.</h2>
+      </div>
+
+      <div className="stack-grid">
+        {STACK_GROUPS.map((group) => (
+          <article key={group.name} className="stack-card">
+            <h3>{group.name}</h3>
+            <div className="chip-row">
+              {group.items.map((item) => (
+                <span key={item} className="chip">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section id="about" className="content-section about-grid">
+      <div className="about-copy">
+        <div className="section-heading">
+          <p>About</p>
+          <h2>Full-stack work with a bias toward clarity and performance.</h2>
+        </div>
+
+        <p>
+          My background spans responsive front-end systems, secure back-end
+          services, and cloud delivery. I like products where the interface is
+          straightforward, the architecture is measurable, and the handoff to
+          production feels boring in the best way.
+        </p>
+      </div>
+
+      <div className="about-panel">
+        <div className="about-row">
+          <span>Experience</span>
+          <strong>5+ years</strong>
+        </div>
+        <div className="about-row">
+          <span>Education</span>
+          <strong>Master of IT, Mobile App Development</strong>
+        </div>
+        <div className="about-row">
+          <span>Certification</span>
+          <strong>AWS Cloud Practitioner, 2025</strong>
+        </div>
+        <div className="about-row">
+          <span>Working style</span>
+          <strong>Lean, collaborative, delivery-focused</strong>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSection({ onOpenResume }) {
+  return (
+    <section id="contact" className="content-section contact-section">
+      <div className="contact-card">
+        <div className="section-heading">
+          <p>Contact</p>
+          <h2>Open to freelance, product teams, and focused builds.</h2>
+        </div>
+
+        <p className="contact-text">
+          If you need a React front end, a Node API, a deployment pipeline, or a
+          mobile-first rebuild, email me or connect on LinkedIn.
+        </p>
+
+        <div className="contact-links">
+          <a href="mailto:bihevr@gmail.com" className="cta-button">
+            Email bihevr@gmail.com
+            <ArrowIcon />
+          </a>
+          <a
+            href="https://linkedin.com/in/bihev-rawal"
+            target="_blank"
+            rel="noreferrer"
+            className="ghost-button"
+          >
+            LinkedIn profile
+          </a>
+          <button type="button" className="ghost-button" onClick={onOpenResume}>
+            View resume
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResumeModal({ open, onClose }) {
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+
+    document.body.classList.add("modal-open");
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.classList.remove("modal-open");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div
+      className="modal-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Resume preview"
+      onClick={onClose}
+    >
+      <div className="modal-content" onClick={(event) => event.stopPropagation()}>
+        <button type="button" className="modal-close" onClick={onClose}>
+          Close
+        </button>
+        <iframe
+          src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
+          title="Resume Preview"
+          className="resume-frame"
+        />
+      </div>
+    </div>
+  );
+}
+
 function Footer() {
-  const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
-      <span>© {year} Bihev Rawal</span>
-      <span className="dots" aria-hidden="true">• • •</span>
-      <span>Built with Power of Caffeine</span>
+      <span>© 2026 Bihev Rawal</span>
+      <span aria-hidden="true">·</span>
+      <span>React · Node · AWS</span>
     </footer>
   );
 }
 
-/* -------------------- app -------------------- */
 export default function App() {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
   useEffect(() => {
-    document.title = "Bihev • Portfolio";
+    document.title = "Bihev Rawal • Portfolio";
   }, []);
 
   return (
     <>
-      {/* animated background */}
-      <div className="bg">
-        <div className="blob b1" />
-        <div className="blob b2" />
-        <div className="grid-overlay" />
+      <div className="site-bg" aria-hidden="true">
+        <div className="orb orb-a" />
+        <div className="orb orb-b" />
+        <div className="orb orb-c" />
+        <div className="grid" />
       </div>
 
-      <Header />
+      <Header onOpenResume={() => setResumeOpen(true)} />
 
-      <main>
+      <main className="page-shell">
         <Hero />
-
-        <section id="projects" className="section">
-          <div className="section-head">
-            <h2>Featured Projects</h2>
-            <p className="muted">
-              {PROJECTS.length
-                ? "Hand-picked work and experiments."
-                : "A curated preview while full case studies are being prepared."}
-            </p>
-          </div>
-
-          {PROJECTS.length ? (
-            <div className="project-grid">
-              {PROJECTS.map((p, i) => (
-                <ProjectCard p={p} key={i} />
-              ))}
-            </div>
-          ) : (
-            <EmptyProjects />
-          )}
-        </section>
-
-        <section id="about" className="section about">
-          <h2>About</h2>
-          <p>
-            I’m <strong>Bihev Rawal</strong>, a full-stack developer who blends
-            creativity with code to build fast, scalable, and delightful digital
-            experiences. Always learning, always shipping.
-          </p>
-        </section>
-
-        <section id="contact" className="section contact">
-  <h2>Contact</h2>
-  <div className="card contact-card">
-    <p className="headline"><strong>Let’s build something amazing together!</strong></p>
-    <div className="contact-item">
-      <span className="icon">📧</span>
-      <a href="mailto:bihevr@gmail.com">bihevr@gmail.com</a>
-    </div>
-    <div className="contact-item">
-      <span className="icon">💼</span>
-      <a
-        href="https://linkedin.com/in/bihev-rawal"
-        target="_blank"
-        rel="noreferrer"
-      >
-        linkedin.com/in/bihev-rawal
-      </a>
-    </div>
-    <div className="cta">
-      <a href="mailto:bihevr@gmail.com" className="btn -primary">Email Me</a>
-      <a
-        href="https://linkedin.com/in/bihev-rawal"
-        target="_blank"
-        rel="noreferrer"
-        className="btn -ghost"
-      >
-        Connect on LinkedIn
-      </a>
-    </div>
-  </div>
-</section>
-
+        <ProofGrid />
+        <StackSection />
+        <AboutSection />
+        <ContactSection onOpenResume={() => setResumeOpen(true)} />
       </main>
 
       <Footer />
+
+      <ResumeModal open={resumeOpen} onClose={() => setResumeOpen(false)} />
     </>
   );
 }
